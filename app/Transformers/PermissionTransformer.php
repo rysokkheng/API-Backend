@@ -4,6 +4,7 @@ namespace App\Transformers;
 
 use App\Enums\DateFormatEnum;
 use App\Helpers\Helpers;
+use Illuminate\Support\Facades\App;
 use App\Models\Permission;
 use App\User;
 use League\Fractal\TransformerAbstract;
@@ -16,15 +17,6 @@ use League\Fractal\TransformerAbstract;
 class PermissionTransformer extends TransformerAbstract
 {
 
-//    protected $availableIncludes  = [
-//        'createdByUser',
-//        'updatedByUser'
-//    ];
-
-    protected $defaultIncludes  = [
-        'createdByUser',
-        'updatedByUser'
-    ];
     /**
      * Transform the User entity.
      *
@@ -37,28 +29,13 @@ class PermissionTransformer extends TransformerAbstract
 
         return [
             'id'        => (int) $model->id,
-            'fullname'  => (string) $model->name,
-            'username'  => (string) $model->display_name,
-            'role'      => (string) $model->description,
+            'name'  => (string) $model->name,
+            'display_name_en'  => (string) (App::getLocale() == 'kh' ? $model->display_name_kh : $model->display_name_en),
+            'description'      => (string) $model->description,
             'created_at'=> Helpers::isDateValid($model->created_at) ? $model->created_at->format(DateFormatEnum::dMYHi) : null,
             'updated_at'=> Helpers::isDateValid($model->updated_at) ? $model->updated_at->format(DateFormatEnum::dMYHi) : null,
         ];
     }
 
-    public function includeCreatedByUser(Permission $model)
-    {
-        $result = $model->createdByUser;
-        if(!is_null($result)) {
-            return $this->item($result, new UserTransformer);
-        } return null;
 
-    }
-
-    public function includeUpdatedByUser(Permission $model)
-    {
-        $result = $model->updatedByUser;
-        if(!is_null($result)) {
-            return $this->item($result, new UserTransformer);
-        } return null;
-    }
 }

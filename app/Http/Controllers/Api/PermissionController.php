@@ -33,7 +33,9 @@ class PermissionController extends BaseController
 
     public function store(PermissionCreateRequest $permissionCreateRequest)
     {
+
         $result = $this->permissionService->insert($permissionCreateRequest);
+
         $result['data'] = $this->transform($result['data'])->getArray();
         return response()->json($result, $result['http_code']);
     }

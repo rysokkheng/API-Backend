@@ -19,19 +19,7 @@ class Permission extends EntrustPermission
     const UPDATED_AT_FIELD  = 'updated_at';
     const UPDATED_BY_FIELD  = 'updated_by';
 
-    public $fillable = ['name', 'display_name', 'description', 'created_by', 'created_at', 'updated_at', 'updated_by'];
+    public $fillable = ['name','group_id', 'display_name_en','display_name_kh', 'description', 'created_by', 'created_at', 'updated_at', 'updated_by'];
 
-    public function createdByUser()
-    {
-        return $this->belongsTo(User::class, 'created_by', 'id')->withDefault(function(){
-            return new User();
-        });;
-    }
 
-    public function updatedByUser()
-    {
-        return $this->belongsTo(User::class, 'updated_by', 'id')->withDefault(function(){
-            return new User();
-        });;
-    }
 }

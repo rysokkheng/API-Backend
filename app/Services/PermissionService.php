@@ -29,6 +29,7 @@ class PermissionService extends SimpleService implements PermissionServiceInterf
 
     public function insert(PermissionCreateRequest $permissionCreateRequest)
     {
+
         $date = Carbon::now()->toDateTime()->format(DateFormatEnum::YmdHis);
         $requests = collect($permissionCreateRequest)->merge([
             $this->repository()->model()::CREATED_AT_FIELD => $date,
@@ -36,6 +37,7 @@ class PermissionService extends SimpleService implements PermissionServiceInterf
             $this->repository()->model()::CREATED_BY_FIELD => Auth::id(),
             $this->repository()->model()::UPDATED_BY_FIELD => Auth::id()
         ]);
+
         return $this->insertData($requests);
     }
 
