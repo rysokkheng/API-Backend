@@ -24,7 +24,7 @@ Route::group(['middleware' => ['auth:api']], function(){
     Route::GET('user/{user}/edit',  ['as'=>'user.edit', 'uses'=> '\App\Http\Controllers\Api\UserController@edit',       /*'middleware' => ['permission:user-edit']*/]);
     Route::POST('user',             ['as'=>'user.store', 'uses'=> '\App\Http\Controllers\Api\UserController@store',     /*'middleware' => ['permission:user-store']*/]);
     Route::PUT('user/{user}',       ['as'=>'user.update', 'uses'=> '\App\Http\Controllers\Api\UserController@update',   /*'middleware' => ['permission:user-update']*/]);
-    Route::DELETE('user',           ['as'=>'user.destroy', 'uses'=> '\App\Http\Controllers\Api\UserController@destroy', /*'middleware' => ['permission:user-delete']*/]);
+    Route::DELETE('user/{user}',           ['as'=>'user.destroy', 'uses'=> '\App\Http\Controllers\Api\UserController@destroy', /*'middleware' => ['permission:user-delete']*/]);
 
     // Role
     Route::GET('role',              ['as'=>'role.index', 'uses'=> '\App\Http\Controllers\Api\RoleController@index',     /*'middleware' => ['permission:user-list']*/]);

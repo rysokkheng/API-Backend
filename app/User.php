@@ -19,10 +19,10 @@ class User extends Authenticatable
     const RECORD_STATUS_ACTIVE  = 1;
     const RECORD_STATUS_DELETE  = 0;
 
-    const CREATED_AT_FIELD = 'cdate';
-    const CREATED_BY_FIELD = 'cby';
-    const UPDATED_AT_FIELD= 'mdate';
-    const UPDATED_BY_FIELD= 'mby';
+    const CREATED_AT_FIELD = 'created_at';
+    const CREATED_BY_FIELD = 'created_by';
+    const UPDATED_AT_FIELD= 'updated_at';
+    const UPDATED_BY_FIELD= 'updated_by';
 
     public $timestamps = false;
 

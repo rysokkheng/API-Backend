@@ -44,8 +44,8 @@ class UserTransformer extends TransformerAbstract
             'phone'     => (string) $model->phone,
             'organization'  => (int) $model->organization,
             'status'    => (int) $model->status,
-            'created_at'=> Helpers::isDateValid($model->cdate) ? $model->cdate->format(DateFormatEnum::dMYHi) : null,
-            'updated_at'=> Helpers::isDateValid($model->mdate) ? $model->mdate->format(DateFormatEnum::dMYHi) : null,
+            'created_at'=> Helpers::isDateValid($model->created_at) ? $model->created_at->format(DateFormatEnum::dMYHi) : null,
+            'updated_at'=> Helpers::isDateValid($model->updated_at) ? $model->updated_at->format(DateFormatEnum::dMYHi) : null,
             'lang'      => App::getLocale()
         ];
     }
