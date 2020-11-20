@@ -178,6 +178,8 @@ return [
         Laravel\Passport\PassportServiceProvider::class,
         \Cyvelnet\Laravel5Fractal\Laravel5FractalServiceProvider::class,
         \Zizaco\Entrust\EntrustServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+
 
 
     ],

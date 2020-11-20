@@ -17,6 +17,7 @@
         "laravel/tinker": "^1.0",
         "league/fractal": "^0.18.0",
         "prettus/l5-repository": "^2.6",
+        "spatie/laravel-permission": "^3.17",
         "zizaco/entrust": "dev-master"
     },
     "require-dev": {

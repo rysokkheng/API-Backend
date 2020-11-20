@@ -37,7 +37,7 @@ class PermissionService extends SimpleService implements PermissionServiceInterf
             $this->repository()->model()::CREATED_BY_FIELD => Auth::id(),
             $this->repository()->model()::UPDATED_BY_FIELD => Auth::id()
         ]);
-
+        dd($requests->all());
         return $this->insertData($requests);
     }
 

@@ -15,14 +15,11 @@ use App\Criteria\RecordStatusCriteria;
 use App\Enums\DateFormatEnum;
 use App\Http\Requests\CreateRequests\UserCreateRequest;
 use App\Http\Requests\UpdateRequests\UserUpdateRequest;
-use App\Models\Role;
-use App\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-
+use DB;
+use Hash;
 class UserService extends SimpleService implements UserServiceInterface
 {
     private $userRepository;
@@ -62,18 +59,17 @@ class UserService extends SimpleService implements UserServiceInterface
         DB::beginTransaction();
         try
         {
-            $date = date(DateFormatEnum::YmdHis);
+            $date = Carbon::now()->toDateTime()->format(DateFormatEnum::YmdHis);
             $request->merge([
                 'password'      => Hash::make($request->get('password')),
-                $this->repository()->model()::CREATED_AT_FIELD   => $date,
-                $this->repository()->model()::CREATED_BY_FIELD   => Auth::id(),
-                $this->repository()->model()::UPDATED_AT_FIELD  => $date,
-                $this->repository()->model()::UPDATED_BY_FIELD  =>Auth::id(),
-                $this->repository()->model()::RECORD_STATUS_FIELD=>$this->repository()->model()::RECORD_STATUS_ACTIVE
+                $this->repository()->model()::CREATED_AT_FIELD => $date,
+                $this->repository()->model()::UPDATED_AT_FIELD => $date,
+                $this->repository()->model()::CREATED_BY_FIELD => Auth::id(),
+                $this->repository()->model()::UPDATED_BY_FIELD => Auth::id()
             ]);
 
-            $user = $this->repository()->create($request->toArray());
-            $user->attachRoles($request->get('roles'));
+            $user = $this->repository()->create($request->all());
+            $user->assignRole($request->input('$roles'));
 
             DB::commit();
             return $this->getSuccessResponseArray(__('global.save_success'), $user);

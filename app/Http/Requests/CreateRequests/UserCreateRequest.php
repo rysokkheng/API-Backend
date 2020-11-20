@@ -16,19 +16,11 @@ class UserCreateRequest extends BaseCreateRequest
     {
         return [
             'fullname' => 'required',
-            'username' => [
-                'required',
-                Rule::unique('users')->where(User::RECORD_STATUS_FIELD, User::RECORD_STATUS_ACTIVE)
-            ],
-            'email' => [
-                'nullable',
-                'email',
-                Rule::unique('users')->where(User::RECORD_STATUS_FIELD, User::RECORD_STATUS_ACTIVE)
-            ],
+            'username' => 'required',
+            'email' =>   'email',
             'password' => 'required|confirmed',
             'password_confirmation' => 'required_with:password',
-            'roles' => 'present',
-            'roles.*' => 'required|numeric',
+            'roles' => 'required',
 
         ];
     }

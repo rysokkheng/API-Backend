@@ -39,11 +39,11 @@ class UserTransformer extends TransformerAbstract
             'id'        => (int) $model->id,
             'fullname'  => (string) $model->fullname,
             'username'  => (string) $model->username,
-            'role'      => (string) $model->role,
+            'roles'      => (string) $model->roles,
             'email'     => (string) $model->email,
             'phone'     => (string) $model->phone,
             'organization'  => (int) $model->organization,
-            'status'    => (int) $model->status,
+            'status'    => (int) $model->record_status_id,
             'created_at'=> Helpers::isDateValid($model->created_at) ? $model->created_at->format(DateFormatEnum::dMYHi) : null,
             'updated_at'=> Helpers::isDateValid($model->updated_at) ? $model->updated_at->format(DateFormatEnum::dMYHi) : null,
             'lang'      => App::getLocale()

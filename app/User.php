@@ -2,22 +2,23 @@
 
 namespace App;
 
-use App\Models\Role;
-use App\Models\UserRole;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
-use Prettus\Repository\Contracts\Presentable;
-use Prettus\Repository\Traits\PresentableTrait;
-use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Spatie\Permission\Traits\HasRoles;
+
+
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable, EntrustUserTrait;
+    use HasApiTokens;
+    use Notifiable;
+    use HasRoles;
+
 
     const RECORD_STATUS_FIELD   = 'record_status_id';
     const RECORD_STATUS_ACTIVE  = 1;
-    const RECORD_STATUS_DELETE  = 0;
+
 
     const CREATED_AT_FIELD = 'created_at';
     const CREATED_BY_FIELD = 'created_by';
@@ -37,7 +38,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'fullname', 'username', 'password', 'role', 'email', 'phone', 'organization', self::RECORD_STATUS_FIELD,
+        'roles','fullname', 'username', 'password', 'email', 'phone', 'organization',self::RECORD_STATUS_ACTIVE, self::RECORD_STATUS_FIELD,
         self::CREATED_AT_FIELD, self::CREATED_BY_FIELD, self::UPDATED_AT_FIELD, self::UPDATED_BY_FIELD,
     ];
 
@@ -56,35 +57,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        self::CREATED_AT_FIELD, self::UPDATED_AT_FIELD,
+        'email_verified_at' => 'datetime',
     ];
-
-    public function createUsers()
+    public function role()
     {
-        return $this->hasMany(User::class, 'cby', 'id');
+        return $this->belongsToMany(Role::class, 'role_user');
     }
 
-    public function updateUsers()
-    {
-        return $this->hasMany(User::class, 'mby', 'id');
-    }
 
-    public function createdByUser()
-    {
-        return $this->belongsTo(User::class, 'cby', 'id')->withDefault(function(){
-            return new User();
-        });
-    }
 
-    public function updatedByUser()
-    {
-        return $this->belongsTo(User::class, 'mby', 'id')->withDefault(function(){
-            return new User();
-        });
-    }
 
-    public function roles()
-    {
-        return $this->hasMany(UserRole::class, 'user_id', 'id');
-    }
 }
