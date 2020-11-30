@@ -37,9 +37,10 @@ class RoleTransformer extends TransformerAbstract
 
         return [
             'id'        => (int) $model->id,
-            'fullname'  => (string) $model->name,
-            'username'  => (string) $model->display_name,
-            'role'      => (string) $model->description,
+            'name'  => (string) $model->name,
+            'roles'  => (string) $model->display_name,
+            'description'      => (string) $model->description,
+            'status'  => (string) $model->record_status_id,
             'created_at'=> Helpers::isDateValid($model->created_at) ? $model->created_at->format(DateFormatEnum::dMYHi) : null,
             'updated_at'=> Helpers::isDateValid($model->updated_at) ? $model->updated_at->format(DateFormatEnum::dMYHi) : null,
         ];
