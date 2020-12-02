@@ -20,8 +20,9 @@ class RoleCreateRequest extends BaseCreateRequest
                 'required',
                 Rule::unique('roles', 'name')
             ],
-            'permissions' => 'present',
+            'permissions' => 'present|array|min:1',
             'permissions.*' => 'required|numeric',
+
         ];
     }
 }

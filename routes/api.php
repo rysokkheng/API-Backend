@@ -16,10 +16,8 @@ use Illuminate\Http\Request;
 Route::post('login', 'api\LoginController@login');
 
 Route::group(['middleware' => ['auth:api']], function(){
-    //Route::resource('user', Api\UserController::class);
 
     Route::GET('user',              ['as'=>'user.index', 'uses'=> '\App\Http\Controllers\Api\UserController@index',     /*'middleware' => ['permission:user-list']*/]);
-    //Route::GET('user/create',       ['as'=>'user.create', 'uses'=> '\App\Http\Controllers\Api\UserController@create', /*'middleware' => ['permission:user-create']*/]);
     Route::GET('user/{user}',       ['as'=>'user.show', 'uses'=> '\App\Http\Controllers\Api\UserController@show',       /*'middleware' => ['permission:user-show']*/]);
     Route::GET('user/{user}/edit',  ['as'=>'user.edit', 'uses'=> '\App\Http\Controllers\Api\UserController@edit',       /*'middleware' => ['permission:user-edit']*/]);
     Route::POST('user',             ['as'=>'user.store', 'uses'=> '\App\Http\Controllers\Api\UserController@store',     /*'middleware' => ['permission:user-store']*/]);

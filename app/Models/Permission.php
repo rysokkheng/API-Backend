@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Traits\HasTimestamps;
-use App\User;
 use Zizaco\Entrust\EntrustPermission;
 
 /**

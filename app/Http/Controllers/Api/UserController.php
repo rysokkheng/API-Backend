@@ -5,6 +5,7 @@ use App\Http\Requests\CreateRequests\UserCreateRequest;
 use App\Http\Requests\UpdateRequests\UserUpdateRequest;
 use App\Transformers\UserTransformer;
 
+
 /**
  * Created by PhpStorm.
  * User: rysokkheng
@@ -22,6 +23,7 @@ class UserController extends BaseController
     {
         $this->userService = $userService;
     }
+
 
     public function index()
     {
@@ -50,6 +52,7 @@ class UserController extends BaseController
         $result['data'] = $this->transform($result['data'])->getArray();
         return response()->json($result, $result['http_code']);
     }
+
 
     public function edit($id)
     {

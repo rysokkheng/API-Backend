@@ -21,7 +21,9 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        Cors::class
+        Cors::class,
+
+
     ];
 
     /**
@@ -65,7 +67,9 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'localization' => localization::class,
-        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
+        'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
+        'role' => \App\Http\Middleware\CheckRole::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
     ];

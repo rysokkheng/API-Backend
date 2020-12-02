@@ -182,6 +182,7 @@ return [
 
 
 
+
     ],
 
     /*
@@ -234,6 +235,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Fractal' => \Cyvelnet\Laravel5Fractal\Facades\Fractal::class,
         'Entrust'   => \Zizaco\Entrust\EntrustFacade::class,
+        'jwt' => Tymon\JWTAuth\Providers\JWT\Namshi::class,
     ],
 
 ];

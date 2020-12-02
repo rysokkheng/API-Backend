@@ -18,7 +18,7 @@ class Role extends EntrustRole
     const UPDATED_AT_FIELD  = 'updated_at';
     const UPDATED_BY_FIELD  = 'updated_by';
 
-    public $fillable = ['name', 'display_name', 'description', 'created_by', 'created_at', 'updated_at', 'updated_by'];
+    public $fillable = ['name', 'display_name', 'description','guard_name', 'created_by', 'created_at', 'updated_at', 'updated_by'];
 
     public function createdByUser()
     {

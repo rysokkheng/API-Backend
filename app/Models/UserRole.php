@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\HasTimestamps;
 use App\User;
+use Spatie\Permission\Traits\HasRoles;
 use Zizaco\Entrust\EntrustRole;
 
 /**
@@ -13,6 +14,7 @@ use Zizaco\Entrust\EntrustRole;
  */
 class UserRole extends BaseModel
 {
+    use HasRoles;
     public $timestamps = false;
 
     protected $table = 'role_user';

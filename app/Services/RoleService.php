@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: mruongyutthy
+ * User: rysokkehng
  * Date: 1/4/20
  * Time: 14:44
  */
@@ -13,6 +13,7 @@ use App\Contracts\Services\RoleServiceInterface;
 use App\Enums\DateFormatEnum;
 use App\Http\Requests\CreateRequests\RoleCreateRequest;
 use App\Http\Requests\UpdateRequests\RoleUpdateRequest;
+use App\Models\RoleHasPermissions;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -33,15 +34,15 @@ class RoleService extends SimpleService implements RoleServiceInterface
         DB::beginTransaction();
         try{
             $date = Carbon::now()->toDateTime()->format(DateFormatEnum::YmdHis);
+
             $requests = collect($roleCreateRequest)->merge([
                 $this->repository()->model()::CREATED_AT_FIELD => $date,
                 $this->repository()->model()::UPDATED_AT_FIELD => $date,
                 $this->repository()->model()::CREATED_BY_FIELD => Auth::id(),
                 $this->repository()->model()::UPDATED_BY_FIELD => Auth::id()
             ]);
-
             $role = $this->repository()->create($requests->all());
-            $role->attachPermissions($roleCreateRequest->get('permissions'));
+            $role->givePermissionTo($roleCreateRequest->get('permissions'));
 
             DB::commit();
             return $this->getSuccessResponseArray(__('global.save_success'), $role);
